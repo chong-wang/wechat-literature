@@ -15,9 +15,11 @@ func main() {
 	}
 
 	LoadProgress(DefaultProgressFile)
+	CheckAll()
 
 	RegisterReportProgress(session)
 	RegisterJoinGroup(session)
+	RegisterReplier(session)
 
 	const sessionFile = "session.json"
 	LoadSession(sessionFile, session)
@@ -25,6 +27,8 @@ func main() {
 		SaveSession(sessionFile, session)
 		return nil
 	})
+
+	println("https://login.weixin.qq.com/l/" + session.QrcodeUUID)
 
 	for {
 		if err := session.LoginAndServe(len(session.GetCookies()) != 0); err != nil {

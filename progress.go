@@ -51,6 +51,17 @@ type Progress struct {
 
 var All []*Progress
 
+func findByNick(nick string) *Progress {
+	var p *Progress
+	for i := range All {
+		if All[i].Nick == nick {
+			p = All[i]
+			break
+		}
+	}
+	return p
+}
+
 func UpdateProgress(nick, book string, percent int) {
 	if book == "" {
 		return
@@ -61,22 +72,17 @@ func UpdateProgress(nick, book string, percent int) {
 		percent = 100
 	}
 
-	var p *Progress
-	for i := range All {
-		if All[i].Nick == nick {
-			p = All[i]
-			break
-		}
-	}
+	p := findByNick(nick)
 	if p == nil {
 		p = &Progress{Nick: nick, Rank: Iron1, Blood: 3}
 		All = append(All, p)
 	}
+
 	p.UpdateAt = time.Now()
 
 	var i int
 	for i = 0; i < len(p.Books); i++ {
-		if p.Books[i] == book {
+		if strings.EqualFold(p.Books[i], book) {
 			break
 		}
 	}
@@ -96,17 +102,25 @@ func GenImage() []byte {
 	draw.Draw(img, img.Bounds(), image.White, image.ZP, draw.Src)
 	DrawTable(img, cells)
 	DrawRecords(img, cells, records, colors)
-	WriteFile("new-progress.jpg", img)
 	return ImageBytes(img)
 }
 
 func init() {
+	all := All
 	All = []*Progress{{}}
 	rows, _ := ToRows()
 	if len(rows[0]) != len(rows[1]) {
 		panic("please check `func ToRows() [][]string', the column number not equal")
 	}
-	All = nil
+	All = all
+}
+
+func CheckAll() {
+	for _, p := range All {
+		if len(p.Books) != len(p.Percents) {
+			panic("please check `" + p.Nick + "` progress")
+		}
+	}
 }
 
 func IsSameDay(d1, d2 time.Time) bool {

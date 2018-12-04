@@ -1,7 +1,6 @@
 package main
 
 import (
-	//	"encoding/json"
 	"fmt"
 	"strconv"
 	"strings"
@@ -20,62 +19,64 @@ func RegisterReportProgress(session *wxweb.Session) {
 	}
 }
 
-func getNick(session *wxweb.Session, who *wxweb.User) string {
-	if who.DisplayName != "" {
-		return who.DisplayName
-	}
-	friends := session.Cm.GetContactsByName(who.NickName)
-	for _, friend := range friends {
-		if friend.RemarkName == who.NickName {
-			return friend.NickName
-		}
-	}
-	return who.NickName
-}
-
-func getGroupMembers(session *wxweb.Session, list []*wxweb.User) []string {
-	names := make([]string, len(list))
-	for i, user := range list {
-		names[i] = getNick(session, user)
-	}
-	return names
+var reportCache struct {
+	group map[string]string
+	mm    *wxweb.MemberManager
 }
 
 func reportProgress(session *wxweb.Session, msg *wxweb.ReceivedMessage) {
 	if !msg.IsGroup {
 		return
 	}
-	var contact *wxweb.User
-	var username string
-	if msg.FromUserName == session.Bot.UserName {
-		username = msg.ToUserName
-	} else {
-		username = msg.FromUserName
-	}
-	contact = session.Cm.GetContactByUserName(username)
-	if contact == nil {
-		contact = &wxweb.User{UserName: username}
-	}
-	mm, err := wxweb.CreateMemberManagerFromGroupContact(session, contact)
-	if err != nil {
-		logs.Debug(err)
-		return
-	}
-	fmt.Printf("new msg from: %v\n", mm.Group.PYQuanPin)
-	if mm.Group.PYQuanPin != LiteratureLoverGroup {
-		return
-	}
-	who := mm.GetContactByUserName(msg.Who)
-	if who == nil {
-		who = session.Bot
-	}
 
 	if msg.MsgType != wxweb.MSG_TEXT {
 		return
 	}
 
-	// p, _ := json.Marshal(getGroupMembers(session, mm.Group.MemberList))
-	// fmt.Printf("%s\n", p)
+	var username = msg.FromUserName
+	if msg.FromUserName == session.Bot.UserName {
+		username = msg.ToUserName
+	}
+
+	var mm *wxweb.MemberManager
+	group, ok := reportCache.group[username]
+	if !ok {
+		contact := session.Cm.GetContactByUserName(username)
+		if contact == nil {
+			contact = &wxweb.User{UserName: username}
+		}
+		var err error
+		mm, err = wxweb.CreateMemberManagerFromGroupContact(session, contact)
+		if err != nil {
+			logs.Debug(err)
+			return
+		}
+		if reportCache.group == nil {
+			reportCache.group = make(map[string]string)
+		}
+		group = mm.Group.PYQuanPin
+		reportCache.group[username] = group
+	}
+
+	fmt.Println("new msg from:", group)
+	if group != LiteratureLoverGroup {
+		return
+	}
+
+	if mm == nil {
+		mm = reportCache.mm
+	} else {
+		reportCache.mm = mm
+	}
+
+	who := mm.GetContactByUserName(msg.Who)
+	if who == nil {
+		mm.Update(session)
+		who = mm.GetContactByUserName(msg.Who)
+	}
+	if who == nil {
+		who = session.Bot
+	}
 
 	if IsReport(msg.Content) {
 		book, percent := ParseReportInfo(msg.Content)
@@ -83,26 +84,26 @@ func reportProgress(session *wxweb.Session, msg *wxweb.ReceivedMessage) {
 			return
 		}
 
-		nick := getNick(session, who)
+		nick := GetNick(session, who)
 		UpdateProgress(nick, book, percent)
 		SyncProgress(DefaultProgressFile)
 
-		text := fmt.Sprintf("@%s [握手] 收到: 《%s》 %d%%。", nick, book, percent)
-		// session.SendText(text, session.Bot.UserName, session.Bot.UserName)
-		// session.SendImgFromBytes(GenImage(), "progress.jpg", session.Bot.UserName, session.Bot.UserName)
-		session.SendText(text, session.Bot.UserName, username)
+		// text := fmt.Sprintf("@%s [握手] 收到: 《%s》 %d%%。", nick, book, percent)
+		// session.SendText(text, session.Bot.UserName, username)
 		session.SendImgFromBytes(GenImage(), "progress.jpg", session.Bot.UserName, username)
 	} else if msg.Content == "进度" {
-		session.SendImgFromBytes(GenImage(), "progress.jpg", session.Bot.UserName, session.Bot.UserName)
+		session.SendImgFromBytes(GenImage(), "progress.jpg", session.Bot.UserName, username)
 	}
 }
 
 func IsReport(s string) bool {
 	s = strings.TrimSpace(s)
-	if !strings.HasSuffix(s, "%") {
+	if s == "" {
 		return false
 	}
-	return len(s) < 64 // 书名一般没多长
+	rs := []rune(s)
+	r := rs[len(rs)-1]
+	return len(rs) <= 20 && (r == '%' || r == '％')
 }
 
 func ParseReportInfo(s string) (string, int) {
@@ -112,7 +113,9 @@ func ParseReportInfo(s string) (string, int) {
 	s = strings.TrimSpace(s)
 
 	// trim '%'
-	s = strings.TrimSuffix(s, "%")
+	s = strings.TrimRightFunc(s, func(r rune) bool {
+		return r == '%' || r == '％'
+	})
 	var i int
 	for i = len(s) - 1; i >= 0; i-- {
 		if !unicode.IsDigit(rune(s[i])) {
@@ -128,7 +131,7 @@ func ParseReportInfo(s string) (string, int) {
 	fields := strings.Fields(s)
 	book := fields[len(fields)-1]
 	book = strings.TrimFunc(book, func(r rune) bool {
-		return !unicode.IsLetter(r)
+		return !(unicode.IsLetter(r) || unicode.IsDigit(r))
 	})
 	return book, int(percent)
 }
