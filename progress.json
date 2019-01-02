@@ -1,0 +1,670 @@
+[
+  {
+    "nick": "楊浥塵",
+    "book": [
+      "野蛮大陆"
+    ],
+    "percent": [
+      15
+    ],
+    "rank": "倔强青铜Ⅰ",
+    "blood": 3,
+    "completed": 3,
+    "history": [
+      "命运攸关的抉择",
+      "奥斯维辛",
+      "被遗忘的士兵",
+      "战争中没有女性"
+    ],
+    "update_at": "2018-12-17T10:02:00.534140714+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "曾垂鑫",
+    "book": [
+      "DevOps软件架构师行动指南",
+      "亮剑"
+    ],
+    "percent": [
+      70,
+      20
+    ],
+    "rank": "秩序白银Ⅱ",
+    "blood": 3,
+    "completed": 5,
+    "history": [
+      "大癫狂：非同寻常的大众幻想与群体性疯狂",
+      "Windows Powershell实战指南",
+      "十人以下小团队管理手册",
+      "娱乐至死",
+      "Office365开发入门指南",
+      "大教堂与集市",
+      "简约至上：交互式设计四策略",
+      "知识大迁移",
+      "万达工作法"
+    ],
+    "update_at": "2018-12-16T21:18:22.266807113+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "稀粥叔叔",
+    "book": [],
+    "percent": [],
+    "rank": "顽强黑铁Ⅱ",
+    "blood": 3,
+    "completed": 1,
+    "history": [
+      "没有任何借口"
+    ],
+    "update_at": "2018-12-08T22:06:15.200049101+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "shine",
+    "book": [
+      "杀死一只知更鸟",
+      "爆裂"
+    ],
+    "percent": [
+      5,
+      20
+    ],
+    "rank": "顽强黑铁Ⅲ",
+    "blood": 3,
+    "completed": 2,
+    "history": [
+      "了不起的盖茨比",
+      "TLCL"
+    ],
+    "update_at": "2018-12-17T08:47:38.389801228+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "听鬼哥说故事",
+    "book": [
+      "失控"
+    ],
+    "percent": [
+      35
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-16T21:39:13.055446642+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "君君",
+    "book": [
+      "最后一片叶子",
+      "春宴"
+    ],
+    "percent": [
+      23,
+      20
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-12T23:25:24.715814398+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "雷一生",
+    "book": [
+      "忏悔录",
+      "社会性动物"
+    ],
+    "percent": [
+      77,
+      61
+    ],
+    "rank": "顽强黑铁Ⅱ",
+    "blood": 3,
+    "completed": 1,
+    "history": [
+      "一九八四"
+    ],
+    "update_at": "2018-12-13T23:48:06.445919513+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "凌波",
+    "book": [
+      "货币战争"
+    ],
+    "percent": [
+      45
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-11T23:42:30.678932779+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "月生",
+    "book": [
+      "诸葛亮传"
+    ],
+    "percent": [
+      55
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-12T21:43:31.201006541+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "旺旺不是个仙贝",
+    "book": [
+      "少帅",
+      "今生今世"
+    ],
+    "percent": [
+      29,
+      1
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-03T23:22:36.64035233+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "李亚梦",
+    "book": [
+      "健康快到碗里来",
+      "少有人走的路"
+    ],
+    "percent": [
+      30,
+      55
+    ],
+    "rank": "顽强黑铁Ⅱ",
+    "blood": 3,
+    "completed": 1,
+    "history": [
+      "送你一颗子弹"
+    ],
+    "update_at": "2018-12-15T18:26:53.074142246+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "蓝贝儿",
+    "book": [
+      "概率的烦恼",
+      "果壳中的宇宙"
+    ],
+    "percent": [
+      60,
+      21
+    ],
+    "rank": "顽强黑铁Ⅱ",
+    "blood": 3,
+    "completed": 1,
+    "history": [
+      "不能承受的生命之轻"
+    ],
+    "update_at": "2018-12-11T23:30:15.748603466+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "near",
+    "book": [
+      "漫画ip",
+      "夏目漱石四部曲"
+    ],
+    "percent": [
+      10,
+      8
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-11T22:41:52.873519657+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "Young",
+    "book": [
+      "看见"
+    ],
+    "percent": [
+      60
+    ],
+    "rank": "顽强黑铁Ⅱ",
+    "blood": 3,
+    "completed": 1,
+    "history": [
+      "看见"
+    ],
+    "update_at": "2018-12-14T10:08:52.789427814+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "蜗牛",
+    "book": [
+      "浪潮之巅"
+    ],
+    "percent": [
+      15
+    ],
+    "rank": "顽强黑铁Ⅲ",
+    "blood": 3,
+    "completed": 2,
+    "history": [
+      "我的天才女友",
+      "新名字的故事"
+    ],
+    "update_at": "2018-12-14T10:08:44.981403178+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "GAVIN",
+    "book": [
+      "杂忆与杂写"
+    ],
+    "percent": [
+      96
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-11T09:25:22.710108001+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "Emma",
+    "book": [],
+    "percent": [],
+    "rank": "顽强黑铁Ⅲ",
+    "blood": 3,
+    "completed": 2,
+    "history": [
+      "不能承受的生命之轻",
+      "一个女人的史诗"
+    ],
+    "update_at": "2018-12-17T08:46:20.821724134+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "刘林",
+    "book": [
+      "所罗门的伪证",
+      "刷新"
+    ],
+    "percent": [
+      89,
+      50
+    ],
+    "rank": "顽强黑铁Ⅱ",
+    "blood": 3,
+    "completed": 2,
+    "history": [
+      "所罗门的伪证：法庭"
+    ],
+    "update_at": "2018-12-17T09:53:20.777220399+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "신영초",
+    "book": [
+      "安妮日记",
+      "湘行散记"
+    ],
+    "percent": [
+      70,
+      7
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-04T23:32:11.681019866+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "陈大猫",
+    "book": [
+      "江泽民传"
+    ],
+    "percent": [
+      71
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-13T22:44:09.596753937+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "茶几",
+    "book": [
+      "重口味"
+    ],
+    "percent": [
+      55
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-12T21:35:40.743716794+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "平",
+    "book": [
+      "激荡三十年",
+      "特斯拉-改变世界的汽车"
+    ],
+    "percent": [
+      70,
+      36
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-14T22:33:16.857767247+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "李李木",
+    "book": [
+      "传奇在路上"
+    ],
+    "percent": [
+      52
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-12T23:54:07.366532485+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "WHY桑",
+    "book": [],
+    "percent": [],
+    "rank": "顽强黑铁Ⅱ",
+    "blood": 3,
+    "completed": 1,
+    "history": [
+      "时间简史"
+    ],
+    "update_at": "2018-12-14T23:00:56.376079633+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "游于北方之寒",
+    "book": [
+      "心是孤独的猎手"
+    ],
+    "percent": [
+      16
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-05T23:49:24.565922443+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "It's time",
+    "book": [
+      "假如真有时光机"
+    ],
+    "percent": [
+      40
+    ],
+    "rank": "顽强黑铁Ⅱ",
+    "blood": 3,
+    "completed": 2,
+    "history": [
+      "朝闻道"
+    ],
+    "update_at": "2018-12-06T23:52:44.447764053+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "南雁飞",
+    "book": [
+      "古典部系列",
+      "随风而起"
+    ],
+    "percent": [
+      85,
+      10
+    ],
+    "rank": "顽强黑铁Ⅳ",
+    "blood": 3,
+    "completed": 3,
+    "history": [
+      "探享家：城市",
+      "探享家：家",
+      "请偷走海报"
+    ],
+    "update_at": "2018-12-14T23:37:03.988590221+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "浩轩帝薇",
+    "book": [
+      "Python爬虫",
+      "大英博物馆"
+    ],
+    "percent": [
+      56,
+      18
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-14T10:01:25.294739703+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "杨承晦",
+    "book": [
+      "三国志"
+    ],
+    "percent": [
+      16
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-10T22:15:43.440299404+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "star",
+    "book": [
+      "最好的告别"
+    ],
+    "percent": [
+      10
+    ],
+    "rank": "顽强黑铁Ⅲ",
+    "blood": 3,
+    "completed": 2,
+    "history": [
+      "围城",
+      "挪威的森林"
+    ],
+    "update_at": "2018-12-16T20:11:54.822861679+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "椰子小姐姐",
+    "book": [
+      "Unix环境高级编程",
+      "APUE",
+      "亲密关系"
+    ],
+    "percent": [
+      8,
+      12,
+      6
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-16T23:23:06.896738521+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "我是一条小青龙",
+    "book": [
+      "放学后"
+    ],
+    "percent": [
+      23
+    ],
+    "rank": "顽强黑铁Ⅲ",
+    "blood": 3,
+    "completed": 2,
+    "history": [
+      "解忧杂货店",
+      "时生"
+    ],
+    "update_at": "2018-12-16T23:28:33.554589859+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "Lyy -",
+    "book": [
+      "什么是数学",
+      "非暴力沟通"
+    ],
+    "percent": [
+      9,
+      50
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-14T22:38:18.2978325+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "允浩",
+    "book": [],
+    "percent": [],
+    "rank": "顽强黑铁Ⅱ",
+    "blood": 3,
+    "completed": 1,
+    "history": [
+      "杀死骑士团长"
+    ],
+    "update_at": "2018-12-10T09:52:16.785874682+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "大鹏展翅",
+    "book": [
+      "怪诞行为学"
+    ],
+    "percent": [
+      75
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-10T22:24:45.567519695+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "fish",
+    "book": [
+      "我的前半生-溥仪"
+    ],
+    "percent": [
+      1
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-13T21:07:57.114316146+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "炜炜",
+    "book": [
+      "复活"
+    ],
+    "percent": [
+      70
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-16T21:25:23.157460324+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "Looooony酱",
+    "book": [
+      "一本小小的蓝色逻辑书"
+    ],
+    "percent": [
+      25
+    ],
+    "rank": "顽强黑铁Ⅱ",
+    "blood": 3,
+    "completed": 1,
+    "history": [
+      "漫长的告别"
+    ],
+    "update_at": "2018-12-16T20:47:50.312777438+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "一念之间",
+    "book": [],
+    "percent": [],
+    "rank": "顽强黑铁Ⅱ",
+    "blood": 3,
+    "completed": 1,
+    "history": [
+      "恶意"
+    ],
+    "update_at": "2018-12-17T10:23:53.452387149+08:00",
+    "leaved": false
+  },
+  {
+    "nick": "周彦国",
+    "book": [
+      "国史通鉴朱元璋"
+    ],
+    "percent": [
+      40
+    ],
+    "rank": "顽强黑铁Ⅰ",
+    "blood": 3,
+    "completed": 0,
+    "history": null,
+    "update_at": "2018-12-17T14:18:00.891607596+08:00",
+    "leaved": false
+  }
+]

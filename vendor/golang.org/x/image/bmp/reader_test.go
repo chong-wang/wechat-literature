@@ -15,7 +15,7 @@ import (
 
 const testdataDir = "../testdata/"
 
-func compare(img0, img1 image.Image) error {
+func compare(t *testing.T, img0, img1 image.Image) error {
 	b := img1.Bounds()
 	if !b.Eq(img0.Bounds()) {
 		return fmt.Errorf("wrong image size: want %s, got %s", img0.Bounds(), b)
@@ -38,10 +38,8 @@ func compare(img0, img1 image.Image) error {
 // same pixel data.
 func TestDecode(t *testing.T) {
 	testCases := []string{
-		"colormap",
 		"video-001",
 		"yellow_rose-small",
-		"yellow_rose-small-v5",
 	}
 
 	for _, tc := range testCases {
@@ -69,7 +67,7 @@ func TestDecode(t *testing.T) {
 			continue
 		}
 
-		if err := compare(img0, img1); err != nil {
+		if err := compare(t, img0, img1); err != nil {
 			t.Errorf("%s: %v", tc, err)
 			continue
 		}

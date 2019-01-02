@@ -1,7 +1,7 @@
 package main
 
 import (
-	"encoding/json"
+	"fmt"
 	"image"
 	"image/draw"
 	"io"
@@ -13,53 +13,98 @@ import (
 
 const DefaultProgressFile = "progress.json"
 
-type Rank string
-
-const (
-	Iron1     Rank = "顽强黑铁Ⅰ"
-	Iron2     Rank = "顽强黑铁Ⅱ"
-	Iron3     Rank = "顽强黑铁Ⅲ"
-	Iron4     Rank = "顽强黑铁Ⅳ"
-	Copper1   Rank = "倔强青铜Ⅰ"
-	Copper2   Rank = "倔强青铜Ⅱ"
-	Copper3   Rank = "倔强青铜Ⅲ"
-	Copper4   Rank = "倔强青铜Ⅳ"
-	Silver1   Rank = "秩序白银Ⅰ"
-	Silver2   Rank = "秩序白银Ⅱ"
-	Silver3   Rank = "秩序白银Ⅲ"
-	Silver4   Rank = "秩序白银Ⅳ"
-	Gold1     Rank = "荣耀黄金Ⅰ"
-	Gold2     Rank = "荣耀黄金Ⅱ"
-	Gold3     Rank = "荣耀黄金Ⅲ"
-	Gold4     Rank = "荣耀黄金Ⅳ"
-	Platinum1 Rank = "尊贵铂金Ⅰ"
-	Platinum2 Rank = "尊贵铂金Ⅱ"
-	Platinum3 Rank = "尊贵铂金Ⅲ"
-	Platinum4 Rank = "尊贵铂金Ⅳ"
-)
-
 type Progress struct {
 	Nick      string    `json:"nick" col:"昵称"`
 	Books     []string  `json:"book" col:"书籍"`
 	Percents  []int     `json:"percent" col:"完成度"`
-	Rank      Rank      `json:"rank" col:"排位"`
+	Rank      string    `json:"rank" col:"排位"`
 	Blood     int       `json:"blood" col:"血条"`
 	Completed int       `json:"completed" col:"本期完成书籍"`
 	History   []string  `json:"history" col:"已完成"`
 	UpdateAt  time.Time `json:"update_at"`
+	Leaved    bool      `json:"leaved"`
 }
 
-var All []*Progress
+var AllProgress []*Progress
+
+func ProgressListString() string {
+	ls := make([]string, 0, len(AllProgress))
+	for i, p := range AllProgress {
+		ls = append(ls, fmt.Sprintf("%v: %v", i, p.Nick))
+	}
+	return strings.Join(ls, "\n")
+}
+
+func ProgressBookListString(i int) string {
+	if i < 0 || i >= len(AllProgress) {
+		return ""
+	}
+	p := AllProgress[i]
+	ls := make([]string, 0, len(p.Books))
+	for i, b := range p.Books {
+		ls = append(ls, fmt.Sprintf("%v: %v %v%%", i, b, p.Percents[i]))
+	}
+	return strings.Join(ls, "\n")
+}
+
+func ProgressModifyBookName(who int, book int, name string) (string, string) {
+	if who < 0 || who >= len(AllProgress) {
+		return "", ""
+	}
+	p := AllProgress[who]
+	if book < 0 || book >= len(p.Books) {
+		return p.Nick, ""
+	}
+	origin := p.Books[book]
+	p.Books[book] = name
+	return p.Nick, origin
+}
+
+func ProgressModifyBookPercent(who int, book int, percent int) (string, string, int) {
+	if who < 0 || who >= len(AllProgress) {
+		return "", "", 0
+	}
+	p := AllProgress[who]
+	if book < 0 || book >= len(p.Books) {
+		return p.Nick, "", 0
+	}
+	origin := p.Percents[book]
+	p.Percents[book] = percent
+	return p.Nick, p.Books[book], origin
+}
+
+func ProgressDeleteBook(who int, book int) (string, string, int) {
+	if who < 0 || who >= len(AllProgress) {
+		return "", "", 0
+	}
+	p := AllProgress[who]
+	if book < 0 || book >= len(p.Books) {
+		return p.Nick, "", 0
+	}
+	name := p.Books[book]
+	percent := p.Percents[book]
+	p.Books = append(p.Books[:book], p.Books[:book+1]...)
+	p.Percents = append(p.Percents[:book], p.Percents[:book+1]...)
+	return p.Nick, name, percent
+}
 
 func findByNick(nick string) *Progress {
 	var p *Progress
-	for i := range All {
-		if All[i].Nick == nick {
-			p = All[i]
+	for i := range AllProgress {
+		if AllProgress[i].Nick == nick {
+			p = AllProgress[i]
 			break
 		}
 	}
 	return p
+}
+
+func NoUpdateProgress(nick string) {
+	p := findByNick(nick)
+	if p == nil {
+		return
+	}
+	p.UpdateAt = time.Now()
 }
 
 func UpdateProgress(nick, book string, percent int) {
@@ -74,8 +119,8 @@ func UpdateProgress(nick, book string, percent int) {
 
 	p := findByNick(nick)
 	if p == nil {
-		p = &Progress{Nick: nick, Rank: Iron1, Blood: 3}
-		All = append(All, p)
+		p = &Progress{Nick: nick, Rank: FindRank(0).Name, Blood: 3}
+		AllProgress = append(AllProgress, p)
 	}
 
 	p.UpdateAt = time.Now()
@@ -93,6 +138,40 @@ func UpdateProgress(nick, book string, percent int) {
 		p.Books = append(p.Books, book)
 		p.Percents = append(p.Percents, percent)
 	}
+
+	if percent == 100 {
+		p.Books = append(p.Books[:i], p.Books[i+1:]...)
+		p.Percents = append(p.Percents[:i], p.Percents[i+1:]...)
+
+		found := false
+		for _, b := range p.History {
+			if b == book {
+				found = true
+				break
+			}
+		}
+		if !found {
+			p.History = append(p.History, book)
+			p.Completed++
+			p.Rank = FindRank(len(p.History)).Name
+		}
+	}
+}
+
+func MarkProgressLeave(nick string) {
+	p := findByNick(nick)
+	if p == nil {
+		return
+	}
+	p.Leaved = true
+}
+
+func ChangeProgressNick(old, new string) {
+	p := findByNick(old)
+	if p == nil {
+		return
+	}
+	p.Nick = new
 }
 
 func GenImage() []byte {
@@ -106,17 +185,17 @@ func GenImage() []byte {
 }
 
 func init() {
-	all := All
-	All = []*Progress{{}}
+	all := AllProgress
+	AllProgress = []*Progress{{}}
 	rows, _ := ToRows()
 	if len(rows[0]) != len(rows[1]) {
-		panic("please check `func ToRows() [][]string', the column number not equal")
+		panic("please check `func ToRows()', the column number not equal")
 	}
-	All = all
+	AllProgress = all
 }
 
-func CheckAll() {
-	for _, p := range All {
+func CheckAllProgress() {
+	for _, p := range AllProgress {
 		if len(p.Books) != len(p.Percents) {
 			panic("please check `" + p.Nick + "` progress")
 		}
@@ -130,12 +209,12 @@ func IsSameDay(d1, d2 time.Time) bool {
 func ToRows() ([][]string, []image.Image) {
 	now := time.Now()
 
-	rows := make([][]string, 1+len(All))
+	rows := make([][]string, 1+len(AllProgress))
 	colors := make([]image.Image, len(rows))
 	rows[0] = append(rows[0], "昵称", "书籍", "完成度", "排位", "血条", "本期完成书籍", "已完成")
 	colors[0] = Gray
 
-	for i, e := range All {
+	for i, e := range AllProgress {
 		percents := make([]string, len(e.Percents))
 		for j, p := range e.Percents {
 			percents[j] = strconv.Itoa(p) + "%"
@@ -156,26 +235,18 @@ func ToRows() ([][]string, []image.Image) {
 	return rows, colors
 }
 
-func SyncProgress(file string) error {
-	fp, err := os.OpenFile(file, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0644)
-	if err != nil {
-		return err
+func ReCalcRank() {
+	for _, p := range AllProgress {
+		p.Rank = FindRank(len(p.History)).Name
 	}
-	defer fp.Close()
+}
 
-	enc := json.NewEncoder(fp)
-	enc.SetIndent("", "  ")
-	return enc.Encode(All)
+func SyncProgress(file string) error {
+	return SyncToFile(AllProgress, file)
 }
 
 func LoadProgress(file string) error {
-	fp, err := os.Open(file)
-	if err != nil {
-		return err
-	}
-	defer fp.Close()
-
-	return json.NewDecoder(fp).Decode(&All)
+	return LoadFromFile(&AllProgress, file)
 }
 
 func ArchiveProgress(file string) error {

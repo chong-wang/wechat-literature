@@ -296,9 +296,17 @@ const (
 		// y = abs(x)
 		// y >>= 2 // Shift by 2*ϕ - 16.
 		// y = min(y, fxAlmost65536)
-		PABSD  X1, X2
-		PSRLL  $2, X2
-		PMINUD X5, X2
+		//
+		// pabsd  %xmm1,%xmm2
+		// psrld  $0x2,%xmm2
+		// pminud %xmm5,%xmm2
+		//
+		// Hopefully we'll get these opcode mnemonics into the assembler for Go
+		// 1.8. https://golang.org/issue/16007 isn't exactly the same thing, but
+		// it's similar.
+		BYTE $0x66; BYTE $0x0f; BYTE $0x38; BYTE $0x1e; BYTE $0xd1
+		BYTE $0x66; BYTE $0x0f; BYTE $0x72; BYTE $0xd2; BYTE $0x02
+		BYTE $0x66; BYTE $0x0f; BYTE $0x38; BYTE $0x3b; BYTE $0xd5
 		`
 	flClampAndScale = `
 		// y = x & flSignMask
@@ -348,10 +356,13 @@ const (
 		MOVOU X0, X11
 		PSRLQ $32, X11
 		// Multiply by magic, shift by magic.
-		PMULULQ X10, X0
-		PMULULQ X10, X11
-		PSRLQ   $47, X0
-		PSRLQ   $47, X11
+		//
+		// pmuludq %xmm10,%xmm0
+		// pmuludq %xmm10,%xmm11
+		BYTE  $0x66; BYTE $0x41; BYTE $0x0f; BYTE $0xf4; BYTE $0xc2
+		BYTE  $0x66; BYTE $0x45; BYTE $0x0f; BYTE $0xf4; BYTE $0xda
+		PSRLQ $47, X0
+		PSRLQ $47, X11
 		// Merge the two registers back to one, X11, and add maskA.
 		PSLLQ $32, X11
 		XORPS X0, X11

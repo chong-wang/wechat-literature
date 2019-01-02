@@ -25,12 +25,13 @@ const (
 var (
 	Green = image.NewUniform(color.RGBA{193, 255, 193, 0})
 	Gray  = image.NewUniform(color.RGBA{232, 232, 232, 0})
+	Smoke = image.NewUniform(color.RGBA{245, 245, 245, 0})
 	White = image.White
 )
 
 func ImageBytes(img image.Image) []byte {
 	var buf bytes.Buffer
-	jpeg.Encode(&buf, img, nil)
+	jpeg.Encode(&buf, img, &jpeg.Options{Quality: 60})
 	return buf.Bytes()
 }
 

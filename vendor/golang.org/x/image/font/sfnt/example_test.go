@@ -16,7 +16,7 @@ import (
 	"golang.org/x/image/vector"
 )
 
-func Example_rasterizeGlyph() {
+func ExampleRasterizeGlyph() {
 	const (
 		ppem    = 32
 		width   = 24
